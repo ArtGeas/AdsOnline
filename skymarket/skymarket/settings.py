@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "ads",
     "redoc",
     "drf-spectacular",
+    "corsheaders"
 ]
 
 
