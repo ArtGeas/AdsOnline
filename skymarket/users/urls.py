@@ -1,7 +1,11 @@
 from django.urls import include, path
+from django.conf.urls.static import static
 from djoser.views import UserViewSet
 from rest_framework.routers import SimpleRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
+from skymarket.skymarket import settings
+
 # TODO подключите UserViewSet из Djoser.views к нашим urls.py
 # TODO для этокого рекоммендуется использовать SimpleRouter
 
@@ -13,3 +17,6 @@ urlpatterns = [
     path("token/", TokenObtainPairView.as_view()),
     path("token/refresh/", TokenRefreshView.as_view()),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
