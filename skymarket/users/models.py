@@ -5,7 +5,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.utils.translation import gettext_lazy as _
 
 
-class UserRoles:
+class UserRoles(models.TextChoices):
     # TODO закончите enum-класс для пользователя
     ADMIN = "admin"
     USER = "user"
@@ -14,6 +14,13 @@ class UserRoles:
 class User(AbstractBaseUser):
     # TODO переопределение пользователя.
     # TODO подробности также можно поискать в рекоммендациях к проекту
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=20)
+    phone = models.CharField(max_length=20)
+    email = models.EmailField()
+    role = models.CharField(choices=UserRoles.choices)
+    image = models.ImageField()
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'phone', "role"]
 
