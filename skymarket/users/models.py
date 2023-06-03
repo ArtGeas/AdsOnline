@@ -19,7 +19,7 @@ class User(AbstractBaseUser):
     phone = models.CharField(max_length=20)
     email = models.EmailField()
     role = models.CharField(choices=UserRoles.choices)
-    image = models.ImageField()
+    image = models.ImageField(upload_to="user_image")
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'phone', "role"]
