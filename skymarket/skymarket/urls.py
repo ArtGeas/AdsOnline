@@ -11,6 +11,7 @@ urlpatterns = [
     path("api/redoc-tasks/", include("redoc.urls")),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path("api/schema/swagger-ui/", SpectacularSwaggerView.as_view(url_name='schema'), name="swagger-ui"),
-    path("", include("users.urls"))
+    path("", include("users.urls")),
+    path("ads/", include("ads.urls")),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
