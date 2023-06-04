@@ -15,7 +15,6 @@ class AdViewSet(viewsets.ModelViewSet):
     serializer_class = AdSerializer
 
 
-
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
