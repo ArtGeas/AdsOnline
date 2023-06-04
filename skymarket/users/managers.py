@@ -3,6 +3,8 @@ from django.contrib.auth.models import (
 )
 # TODO здесь должен быть менеджер для модели Юзера.
 # TODO Поищите эту информацию в рекомендациях к проекту
+
+
 class UserManager(BaseUserManager):
 
     def create_user(self, email, first_name, last_name, phone, password=None):
