@@ -1,8 +1,10 @@
 from rest_framework import pagination, viewsets, generics
+from django_filters.rest_framework import DjangoFilterBackend
 
 from ads.models import Ad, Comment
 
 from ads.serializers import AdSerializer, AdDetailSerializer, CommentSerializer
+from ads.filters import AdFilter
 
 
 class AdPagination(pagination.PageNumberPagination):
@@ -15,6 +17,10 @@ class AdPagination(pagination.PageNumberPagination):
 class AdViewSet(viewsets.ModelViewSet):
     queryset = Ad.objects.all()
     pagination_class = AdPagination
+
+    filter_backends = (DjangoFilterBackend, )
+    filterset_class = AdFilter
+
     serializers = {"list": AdSerializer, "retrieve": AdDetailSerializer}
     default_serializer = AdDetailSerializer
 

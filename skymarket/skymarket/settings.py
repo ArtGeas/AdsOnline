@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     "ads",
     "redoc",
     "drf_spectacular",
-    "corsheaders"
+    "corsheaders",
+    "django-filters"
 ]
 
 
