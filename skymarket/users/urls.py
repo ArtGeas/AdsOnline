@@ -17,6 +17,3 @@ urlpatterns = [
     path("token/", TokenObtainPairView.as_view()),
     path("token/refresh/", TokenRefreshView.as_view()),
 ]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
