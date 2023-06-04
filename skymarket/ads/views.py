@@ -6,12 +6,15 @@ from ads.serializers import AdSerializer, AdDetailSerializer, CommentSerializer
 
 
 class AdPagination(pagination.PageNumberPagination):
-    pass
+    page_size = 4
+    page_query_param = "page_size"
+
 
 
 # TODO view функции. Предлагаем Вам следующую структуру - но Вы всегда можете использовать свою
 class AdViewSet(viewsets.ModelViewSet):
     queryset = Ad.objects.all()
+    pagination_class = AdPagination
     serializers = {"list": AdSerializer, "retrieve": AdDetailSerializer}
     default_serializer = AdDetailSerializer
 
