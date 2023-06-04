@@ -19,6 +19,6 @@ class Ad(models.Model):
 class Comment(models.Model):
     # TODO добавьте поля модели здесь
     text = models.TextField()
-    author = models.ForeignKey(User, on_delete=models.SET_NULL)
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     ad = models.ForeignKey(Ad, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
