@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     "redoc",
     "drf_spectacular",
     "corsheaders",
-    "django-filters"
+    "django_filters"
 ]
 
 
