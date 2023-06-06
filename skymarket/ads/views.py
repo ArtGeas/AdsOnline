@@ -1,6 +1,6 @@
 from rest_framework import pagination, viewsets, generics
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from ads.models import Ad, Comment
 from ads.serializers import AdSerializer, AdDetailSerializer, CommentSerializer
@@ -25,6 +25,7 @@ class AdViewSet(viewsets.ModelViewSet):
     serializers = {"list": AdSerializer, "retrieve": AdDetailSerializer}
     default_serializer = AdDetailSerializer
 
+    default_permission = [AllowAny]
     permissions = {
         'retrieve': [IsAuthenticated],
         'create:': [IsAuthenticated],
@@ -43,6 +44,18 @@ class AdViewSet(viewsets.ModelViewSet):
 
 class CommentViewSet(generics.ListAPIView):
     serializer_class = CommentSerializer
+
+    permissions = {
+        'retrieve': [IsAuthenticated],
+        'create:': [IsAuthenticated],
+        'update': [IsOwner | IsStaff],
+        'destroy': [IsOwner | IsStaff],
+        'partial_update': [IsOwner | IsStaff]
+    }
+
+    def get_permissions(self):
+        self.permission_classes = self.permissions.get(self.action)
+        return super().get_permissions()
 
     def get_queryset(self):
         return Comment.objects.filter(ad=self.kwargs['id'])
