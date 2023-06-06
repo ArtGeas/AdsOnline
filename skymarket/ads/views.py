@@ -1,10 +1,11 @@
 from rest_framework import pagination, viewsets, generics
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.permissions import IsAuthenticated
 
 from ads.models import Ad, Comment
-
 from ads.serializers import AdSerializer, AdDetailSerializer, CommentSerializer
 from ads.filters import AdFilter
+from ads.permissions import IsOwner, IsStaff
 
 
 class AdPagination(pagination.PageNumberPagination):
@@ -23,6 +24,18 @@ class AdViewSet(viewsets.ModelViewSet):
 
     serializers = {"list": AdSerializer, "retrieve": AdDetailSerializer}
     default_serializer = AdDetailSerializer
+
+    permissions = {
+        'retrieve': [IsAuthenticated],
+        'create:': [IsAuthenticated],
+        'update': [IsOwner | IsStaff],
+        'destroy': [IsOwner | IsStaff],
+        'partial_update': [IsOwner | IsStaff]
+    }
+
+    def get_permissions(self):
+        self.permission_classes = self.permissions.get(self.action)
+        return super().get_permissions()
 
     def get_serializer_class(self):
         return self.serializers.get(self.action, self.default_serializer)
