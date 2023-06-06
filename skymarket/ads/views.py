@@ -35,7 +35,7 @@ class AdViewSet(viewsets.ModelViewSet):
     }
 
     def get_permissions(self):
-        self.permission_classes = self.permissions.get(self.action)
+        self.permission_classes = self.permissions.get(self.action, self.default_permission)
         return super().get_permissions()
 
     def get_serializer_class(self):
