@@ -22,7 +22,7 @@ class User(AbstractBaseUser):
     image = models.ImageField(upload_to="user_image", blank=True, null=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'phone', "role"]
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'phone']
 
     @property
     def is_superuser(self):
