@@ -42,9 +42,9 @@ class AdViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         return self.serializers.get(self.action, self.default_serializer)
 
-    @action(detail=False, methods=['get'])
-    def me(self, request):
-        return Ad.objects.filter(author_id=request.user.id)
+    @action(detail=False, methods=["get"])
+    def me(self, request, *args, **kwargs):
+        return super().list(self, request, *args, **kwargs)
 
 
 class CommentViewSet(generics.ListAPIView):
