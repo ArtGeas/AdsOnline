@@ -1,5 +1,6 @@
 from rest_framework import pagination, viewsets, generics
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from ads.models import Ad, Comment
@@ -40,6 +41,10 @@ class AdViewSet(viewsets.ModelViewSet):
 
     def get_serializer_class(self):
         return self.serializers.get(self.action, self.default_serializer)
+
+    @action(detail=False, methods=['get'])
+    def me(self, request):
+        user_ads = Ad.objects.all()
 
 
 class CommentViewSet(generics.ListAPIView):
