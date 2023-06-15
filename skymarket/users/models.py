@@ -20,6 +20,8 @@ class User(AbstractBaseUser):
     email = models.EmailField(unique=True)
     role = models.CharField(choices=UserRoles.choices, default='user')
     image = models.ImageField(upload_to="user_image", blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'phone']
