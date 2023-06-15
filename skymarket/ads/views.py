@@ -44,7 +44,7 @@ class AdViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['get'])
     def me(self, request):
-        user_ads = Ad.objects.all()
+        return Ad.objects.filter(author_id=request.user.id)
 
 
 class CommentViewSet(generics.ListAPIView):
