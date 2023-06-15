@@ -16,4 +16,4 @@ class UserRegistrationSerializer(BaseUserRegistrationSerializer):
 class CurrentUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        exclude = ['password']
+        fields = ['first_name', 'last_name', 'phone', 'id', 'email', 'image']
