@@ -8,16 +8,22 @@ from users.models import User
 
 class CommentSerializer(serializers.ModelSerializer):
     # TODO сериалайзер для модели
+    author_first_name = serializers.ReadOnlyField(source='author.first_name')
+    author_last_name = serializers.ReadOnlyField(source='author.last_name')
+    author_image = serializers.ReadOnlyField(source='author.image')
+    ad_id = serializers.ReadOnlyField(source='ad.pk')
+
     class Meta:
         model = Comment
-        fields = "__all__"
+        fields = ["pk", "text", "author_id", "created_at",
+                  "author_first_name", "author_last_name", "ad_id", "author_image"]
 
 
 class AdSerializer(serializers.ModelSerializer):
     # TODO сериалайзер для модели
     class Meta:
         model = Ad
-        fields = ['id', 'image', 'title', 'price', 'description']
+        fields = ['pk', 'image', 'title', 'price', 'description']
 
 
 class AdDetailSerializer(serializers.ModelSerializer):
@@ -28,5 +34,5 @@ class AdDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Ad
-        fields = ['id', 'image', 'title', 'price', 'phone', 'description',
+        fields = ['pk', 'image', 'title', 'price', 'phone', 'description',
                   'author_id', 'author_first_name', 'author_last_name']
