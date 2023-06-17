@@ -7,7 +7,7 @@ from ads.views import AdViewSet, CommentViewSet
 
 
 urlpatterns = [
-    path('<id>/comments/', CommentViewSet.as_view())
+    path('<pk>/comments/', CommentViewSet.as_view())
 ]
 
 router = routers.SimpleRouter()
