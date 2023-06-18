@@ -11,6 +11,7 @@ class Ad(models.Model):
     description = models.TextField()
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(upload_to="ad_image", blank=True, null=True)
 
     class Meta:
         ordering = ["-created_at"]
