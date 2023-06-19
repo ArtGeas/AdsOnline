@@ -50,8 +50,6 @@ class AdViewSet(viewsets.ModelViewSet):
 
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
-    serializer_class = CommentSerializer
-    # pagination_class = AdPagination
 
     permissions = {
         'retrieve': [IsAuthenticated],
@@ -66,6 +64,9 @@ class CommentViewSet(viewsets.ModelViewSet):
         'create': CommentCreateSerializer,
     }
     default_serializer = CommentSerializer
+
+    def get_serializer_class(self):
+        return self.serializers.get(self.action, self.default_serializer)
 
     def get_permissions(self):
         self.permission_classes = self.permissions.get(self.action, self.default_permission)
