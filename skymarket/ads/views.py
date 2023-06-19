@@ -19,7 +19,7 @@ class AdPagination(pagination.PageNumberPagination):
 # TODO view функции. Предлагаем Вам следующую структуру - но Вы всегда можете использовать свою
 class AdViewSet(viewsets.ModelViewSet):
     queryset = Ad.objects.all()
-    pagination_class = AdPagination
+    # pagination_class = AdPagination
 
     filter_backends = (DjangoFilterBackend, )
     filterset_class = AdFilter
