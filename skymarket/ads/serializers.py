@@ -8,10 +8,10 @@ from users.models import User
 
 class CommentSerializer(serializers.ModelSerializer):
     # TODO сериалайзер для модели
-    author_first_name = serializers.ReadOnlyField(source='author.first_name')
-    author_last_name = serializers.ReadOnlyField(source='author.last_name')
-    author_image = serializers.ReadOnlyField(source='author.image')
-    ad_id = serializers.ReadOnlyField(source='ad.pk')
+    author_first_name = serializers.CharField(source='author.first_name')
+    author_last_name = serializers.CharField(source='author.last_name')
+    author_image = serializers.ImageField(source='author.image')
+    ad_id = serializers.IntegerField(source='ad.id')
 
     class Meta:
         model = Comment

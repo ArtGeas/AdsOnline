@@ -47,8 +47,10 @@ class AdViewSet(viewsets.ModelViewSet):
         return super().list(self, request, *args, **kwargs)
 
 
-class CommentViewSet(generics.ListAPIView):
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+    # pagination_class = AdPagination
 
     permissions = {
         'retrieve': [IsAuthenticated],
@@ -57,10 +59,8 @@ class CommentViewSet(generics.ListAPIView):
         'destroy': [IsOwner | IsStaff],
         'partial_update': [IsOwner | IsStaff]
     }
+    default_permission = [AllowAny]
 
     def get_permissions(self):
-        self.permission_classes = self.permissions.get(self.action)
+        self.permission_classes = self.permissions.get(self.action, self.default_permission)
         return super().get_permissions()
-
-    def get_queryset(self):
-        return Comment.objects.filter(ad=self.kwargs['id'])
