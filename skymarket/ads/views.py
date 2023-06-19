@@ -43,6 +43,10 @@ class AdViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         return self.serializers.get(self.action, self.default_serializer)
 
+    def create(self, request, *args, **kwargs):
+        request.data['author'] = request.user.id
+        return super().create(request, *args, **kwargs)
+
     @action(detail=False, methods=["get"])
     def me(self, request, *args, **kwargs):
         return super().list(self, request, *args, **kwargs)
