@@ -1,10 +1,11 @@
-from rest_framework import pagination, viewsets, generics
+from rest_framework import pagination, viewsets, status
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.response import Response
 
 from ads.models import Ad, Comment
-from ads.serializers import AdSerializer, AdDetailSerializer, CommentSerializer
+from ads.serializers import AdSerializer, AdDetailSerializer, CommentSerializer, CommentCreateSerializer
 from ads.filters import AdFilter
 from ads.permissions import IsOwner, IsStaff
 
@@ -61,6 +62,24 @@ class CommentViewSet(viewsets.ModelViewSet):
     }
     default_permission = [AllowAny]
 
+    serializers = {
+        'create': CommentCreateSerializer,
+    }
+    default_serializer = CommentSerializer
+
     def get_permissions(self):
         self.permission_classes = self.permissions.get(self.action, self.default_permission)
         return super().get_permissions()
+
+    def create(self, request, *args, **kwargs):
+        data = {
+            'ad': self.kwargs.get('ad_pk'),
+            'author': request.user.pk,
+            'text': request.data.get('text')
+        }
+
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)

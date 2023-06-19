@@ -19,6 +19,12 @@ class CommentSerializer(serializers.ModelSerializer):
                   "author_first_name", "author_last_name", "ad_id", "author_image"]
 
 
+class CommentCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = "__all__"
+
+
 class AdSerializer(serializers.ModelSerializer):
     # TODO сериалайзер для модели
     class Meta:
