@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 
 from ads.models import Ad, Comment
-from ads.serializers import AdSerializer, AdDetailSerializer, CommentSerializer, CommentCreateSerializer
+from ads.serializers import AdSerializer, AdDetailSerializer, AdCreateSerializer, CommentSerializer, CommentCreateSerializer
 from ads.filters import AdFilter
 from ads.permissions import IsOwner, IsStaff
 
@@ -24,7 +24,7 @@ class AdViewSet(viewsets.ModelViewSet):
     filter_backends = (DjangoFilterBackend, )
     filterset_class = AdFilter
 
-    serializers = {"list": AdSerializer, "retrieve": AdDetailSerializer}
+    serializers = {"list": AdSerializer, "retrieve": AdDetailSerializer, "create": AdCreateSerializer}
     default_serializer = AdDetailSerializer
 
     default_permission = [AllowAny]
