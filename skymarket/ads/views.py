@@ -88,3 +88,10 @@ class CommentViewSet(viewsets.ModelViewSet):
         self.perform_create(serializer)
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def list(self, request, *args, **kwargs):
+        ad_pk = self.kwargs.get('ad_pk')
+        queryset = self.queryset.filter(ad_id=ad_pk)
+        serializer = self.get_serializer(queryset, many=True)
+
+        return self.get_paginated_response(self.paginate_queryset(serializer.data))
